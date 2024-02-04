@@ -52,8 +52,8 @@ func (g *Generator) Only(tableName ...string) *Generator {
 	return g
 }
 
-// Models 获取所有模型
-func (g *Generator) Models() []*generate.QueryStructMeta {
+// QueryStructMetas 获取所有模型配置
+func (g *Generator) QueryStructMetas() []*generate.QueryStructMeta {
 	models := make([]*generate.QueryStructMeta, 0, len(g.models))
 	for _, m := range g.models {
 		models = append(models, m)
