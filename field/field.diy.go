@@ -4,6 +4,16 @@ import (
 	"database/sql/driver"
 )
 
+// Between ...
+func (field Field) Between(left driver.Valuer, right driver.Valuer) Expr {
+	return field.between([]interface{}{left, right})
+}
+
+// NotBetween ...
+func (field Field) NotBetween(left driver.Valuer, right driver.Valuer) Expr {
+	return Not(field.Between(left, right))
+}
+
 // Add ...
 func (field Field) Add(value driver.Valuer) Field {
 	return Field{field.add(value)}
@@ -22,6 +32,11 @@ func (field Field) Mul(value driver.Valuer) Field {
 // Div ...
 func (field Field) Div(value driver.Valuer) Field {
 	return Field{field.div(value)}
+}
+
+// Mod ...
+func (field Field) Mod(value driver.Valuer) Int {
+	return Int{field.mod(value)}
 }
 
 // FloorDiv ...

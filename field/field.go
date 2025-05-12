@@ -60,6 +60,11 @@ func (field Field) Like(value driver.Valuer) Expr {
 	return expr{e: clause.Like{Column: field.RawExpr(), Value: value}}
 }
 
+// NotLike ...
+func (field Field) NotLike(value driver.Valuer) Expr {
+	return expr{e: clause.Not(field.Like(value).expression())}
+}
+
 // Value ...
 func (field Field) Value(value driver.Valuer) AssignExpr {
 	return field.value(value)
