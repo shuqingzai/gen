@@ -5,6 +5,9 @@ import (
 	"gorm.io/gen/internal/model"
 )
 
+// QueryStructMeta alias for generate.QueryStructMeta
+type QueryStructMeta = generate.QueryStructMeta
+
 // getModelConfigByTableName 通过表名获取模型配置
 func (g *Generator) getModelConfigByTableName(tableName string, opts ...ModelOpt) *model.Config {
 	modelName := g.db.Config.NamingStrategy.SchemaName(tableName)
@@ -53,10 +56,10 @@ func (g *Generator) Only(tableName ...string) *Generator {
 }
 
 // QueryStructMetas 获取所有模型配置
-func (g *Generator) QueryStructMetas() []*generate.QueryStructMeta {
-	models := make([]*generate.QueryStructMeta, 0, len(g.models))
-	for _, m := range g.models {
-		models = append(models, m)
+func (g *Generator) QueryStructMetas() []*QueryStructMeta {
+	models := make([]*QueryStructMeta, len(g.models))
+	for k := range g.models {
+		models = append(models, g.models[k])
 	}
 	return models
 }
