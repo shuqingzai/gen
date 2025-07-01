@@ -12,6 +12,7 @@ import (
 	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 	"text/template"
 
 	"golang.org/x/tools/go/packages"
@@ -94,8 +95,9 @@ type Logger interface {
 // Generator code generator
 type Generator struct {
 	Config
-	Data   map[string]*genInfo                  //gen query data
-	models map[string]*generate.QueryStructMeta //gen model data
+	Data      map[string]*genInfo                  // gen query data
+	models    map[string]*generate.QueryStructMeta // gen model data
+	modelLock sync.RWMutex
 
 	logger Logger
 }
@@ -133,7 +135,9 @@ func (g *Generator) GenerateModelAs(tableName string, modelName string, opts ...
 		g.info(fmt.Sprintf("ignore table <%s>", tableName))
 		return nil
 	}
+	g.modelLock.Lock()
 	g.models[meta.ModelStructName] = meta
+	g.modelLock.Unlock()
 
 	g.info(fmt.Sprintf("got %d columns from table <%s>", len(meta.Fields), meta.TableName))
 	return meta
@@ -161,7 +165,9 @@ func (g *Generator) GenerateModelFrom(obj helper.Object) *generate.QueryStructMe
 	if err != nil {
 		panic(fmt.Errorf("generate struct from object fail: %w", err))
 	}
+	g.modelLock.Lock()
 	g.models[s.ModelStructName] = s
+	g.modelLock.Unlock()
 
 	g.info(fmt.Sprintf("parse object %s", obj.StructName()))
 	return s
