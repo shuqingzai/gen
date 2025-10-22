@@ -3,6 +3,7 @@ module gorm.io/gen
 go 1.23.0
 
 require (
+	golang.org/x/exp v0.0.0-20240112132812-db7319d0e0e3
 	golang.org/x/tools v0.31.0
 	gorm.io/datatypes v1.2.4
 	gorm.io/gorm v1.25.12
