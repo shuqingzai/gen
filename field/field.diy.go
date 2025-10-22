@@ -1,50 +1,46 @@
 package field
 
-import (
-	"database/sql/driver"
-)
-
 // Between ...
-func (field Field) Between(left driver.Valuer, right driver.Valuer) Expr {
+func (field genericsField[T]) Between(left T, right T) Expr {
 	return field.between([]interface{}{left, right})
 }
 
 // NotBetween ...
-func (field Field) NotBetween(left driver.Valuer, right driver.Valuer) Expr {
+func (field genericsField[T]) NotBetween(left T, right T) Expr {
 	return Not(field.Between(left, right))
 }
 
 // Add ...
-func (field Field) Add(value driver.Valuer) Field {
-	return Field{field.add(value)}
+func (field genericsField[T]) Add(value T) genericsField[T] {
+	return genericsField[T]{field.add(value)}
 }
 
 // Sub ...
-func (field Field) Sub(value driver.Valuer) Field {
-	return Field{field.sub(value)}
+func (field genericsField[T]) Sub(value T) genericsField[T] {
+	return genericsField[T]{field.sub(value)}
 }
 
 // Mul ...
-func (field Field) Mul(value driver.Valuer) Field {
-	return Field{field.mul(value)}
+func (field genericsField[T]) Mul(value T) genericsField[T] {
+	return genericsField[T]{field.mul(value)}
 }
 
 // Div ...
-func (field Field) Div(value driver.Valuer) Field {
-	return Field{field.div(value)}
+func (field genericsField[T]) Div(value T) genericsField[T] {
+	return genericsField[T]{field.div(value)}
 }
 
 // Mod ...
-func (field Field) Mod(value driver.Valuer) Field {
-	return Field{field.mod(value)}
+func (field genericsField[T]) Mod(value T) genericsField[T] {
+	return genericsField[T]{field.mod(value)}
 }
 
 // FloorDiv ...
-func (field Field) FloorDiv(value driver.Valuer) Field {
-	return Field{field.floorDiv(value)}
+func (field genericsField[T]) FloorDiv(value T) genericsField[T] {
+	return genericsField[T]{field.floorDiv(value)}
 }
 
 // Floor ...
-func (field Field) Floor() Field {
-	return Field{field.floor()}
+func (field genericsField[T]) Floor() genericsField[T] {
+	return genericsField[T]{field.floor()}
 }
