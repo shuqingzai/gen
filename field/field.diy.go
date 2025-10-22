@@ -35,16 +35,16 @@ func (field Field) Div(value driver.Valuer) Field {
 }
 
 // Mod ...
-func (field Field) Mod(value driver.Valuer) Int {
-	return Int{field.mod(value)}
+func (field Field) Mod(value driver.Valuer) Field {
+	return Field{field.mod(value)}
 }
 
 // FloorDiv ...
-func (field Field) FloorDiv(value driver.Valuer) Int {
-	return Int{field.floorDiv(value)}
+func (field Field) FloorDiv(value driver.Valuer) Field {
+	return Field{field.floorDiv(value)}
 }
 
 // Floor ...
-func (field Field) Floor() Int {
-	return Int{field.floor()}
+func (field Field) Floor() Field {
+	return Field{field.floor()}
 }
