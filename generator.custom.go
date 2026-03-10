@@ -63,3 +63,10 @@ func (g *Generator) QueryStructMetas() []*QueryStructMeta {
 	}
 	return models
 }
+
+// GenerateModelFile 生成模型文件
+//
+// Export generateModelFile
+func (g *Generator) GenerateModelFile() error {
+	return g.generateModelFile()
+}
